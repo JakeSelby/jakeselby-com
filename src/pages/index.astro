@@ -1,11 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 
 const projects = [
   {
     name: 'Cortex',
-    tagline: 'An AI that remembers who matters to you, tracks what you\'ve committed to, and earns the right to act on your behalf.',
+    tagline: 'An AI that earns the right to act on your behalf.',
+    reason: 'I wanted to build an AI that I would actually trust.',
     brandColor: '#60a5fa',
     status: 'live' as const,
     stack: ['TypeScript', 'Hono', 'pgvector', 'MCP'],
@@ -17,6 +19,7 @@ const projects = [
   {
     name: 'Consul',
     tagline: 'Your ambient AI executive assistant.',
+    reason: 'The surface that makes Cortex useful every day.',
     brandColor: '#1E3A8A',
     status: 'live' as const,
     stack: ['Next.js 15', 'React 19', 'Tailwind'],
@@ -27,93 +30,249 @@ const projects = [
   },
   {
     name: 'Groundwork',
-    tagline: 'Modern voter contact, built for campaigns that move fast.',
+    tagline: 'Modern voter contact, outside the machine.',
+    reason: "Progressive campaigns shouldn't have to ask permission for their own data.",
     brandColor: '#2D6A4F',
-    status: 'donating' as const,
+    status: 'gifted' as const,
     stack: ['React', 'NestJS', 'PostGIS'],
     links: {
-      app: { href: 'https://groundwork.staging.jakeselby.com/demo', label: 'See demo' },
+      app: { href: 'https://groundwork.jakeselby.com/demo', label: 'See demo' },
     },
   },
+  {
+    name: 'Fable',
+    tagline: 'A date-night companion for busy couples.',
+    reason: 'I wanted to build something for my own life.',
+    brandColor: '#9333ea',
+    status: 'live' as const,
+    stack: ['Swift', 'React Native', 'Node.js'],
+    links: {
+      app: { href: 'https://fable.jakeselby.com', label: 'Open app' },
+    },
+  },
+];
+
+const interests = [
+  'Chess', 'Guitar & Drums', 'Tennis', 'NBA', 'Ravens',
+  'March Madness', 'Hiking', 'Biking', 'Gardening',
+  'Cooking', 'Weight Training',
 ];
 ---
 
 <Layout
-  title="Jake Selby"
-  description="VP Engineering at Arcadia and solo builder of production agentic-AI systems."
+  title="Jake Selby — Dad, Builder, VP Engineering"
+  description="Jake Selby — dad, builder, and believer in tech for good. VP Engineering at Arcadia. Political tech, healthcare, and AI for positive impact. Hyattsville, MD."
   currentPath="/"
 >
-  <div class="max-w-4xl mx-auto px-6">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://jakeselby.com/#jake",
+        "name": "Jake Selby",
+        "url": "https://jakeselby.com",
+        "image": "https://jakeselby.com/og.png",
+        "jobTitle": "VP Engineering",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Arcadia"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Hyattsville",
+          "addressRegion": "MD",
+          "addressCountry": "US"
+        },
+        "sameAs": [
+          "https://github.com/JakeSelby",
+          "https://www.linkedin.com/in/jake-selby/",
+          "https://www.facebook.com/jake.selby"
+        ],
+        "knowsAbout": [
+          "Software Engineering",
+          "Agentic AI",
+          "Political Technology",
+          "Healthcare Technology",
+          "Tech for Social Good"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://jakeselby.com/#website",
+        "url": "https://jakeselby.com",
+        "name": "Jake Selby",
+        "description": "Dad, builder, and believer in tech for good.",
+        "author": {
+          "@id": "https://jakeselby.com/#jake"
+        }
+      }
+    ]
+  })} />
 
-    <!-- ─── Hero ──────────────────────────────────────────── -->
-    <section class="pt-16 pb-8 lg:pt-20 lg:pb-10">
-      <h1 class="font-display font-bold text-4xl lg:text-5xl tracking-tight leading-[1.1] text-fg">
-        Jake Selby
-      </h1>
-      <p class="font-body text-base text-fg-2 mt-1.5">
-        Vice President of Engineering · <span class="text-fg">Arcadia</span>
-      </p>
-      <p class="font-body text-lg text-fg-2 leading-snug mt-3 max-w-[55ch]">
-        Engineering leader who helped build CareJourney from employee&nbsp;#7
-        through acquisition — now running 48 engineers at Arcadia while building
-        agentic-AI products on the side.
-      </p>
-    </section>
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="lg:grid lg:grid-cols-[280px_1fr] lg:gap-12">
 
-    <!-- ─── Currently ────────────────────────────────────── -->
-    <section class="py-4 border-t border-[var(--color-border-subtle)]">
-      <p class="font-body text-base text-fg-2">
-        <span class="font-medium text-xs tracking-wide uppercase text-fg-dim mr-2">Currently</span>
-        VPE at Arcadia (48 engineers) · Building Cortex, an ambient agentic-AI
-        cognitive substrate, in production.
-      </p>
-    </section>
-
-    <!-- ─── About ─────────────────────────────────────────── -->
-    <section class="py-6">
-      <p class="font-body text-base text-fg-2 leading-relaxed max-w-[65ch]">
-        I joined CareJourney as employee&nbsp;#7, built the production data
-        platform, and led engineering through its acquisition by Arcadia in
-        July&nbsp;2024. Now I run a 48-person org while solo-shipping production
-        agentic-AI systems — Cortex (cognitive substrate), Consul (EA), and
-        Groundwork (civic field-ops). I've been building with LLMs since
-        ChatGPT launched; agent-first ever since.
-      </p>
-    </section>
-
-    <!-- ─── Projects preview ──────────────────────────────── -->
-    <section class="pt-10 pb-12 border-t border-[var(--color-border)]">
-      <div class="flex items-baseline justify-between mb-6">
-        <h2 class="font-display font-semibold text-2xl text-fg">Projects</h2>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {projects.map((project) => (
-          <ProjectCard
-            name={project.name}
-            tagline={project.tagline}
-            brandColor={project.brandColor}
-            status={project.status}
-            stack={project.stack}
-            links={project.links}
-            variant="compact"
-            headingLevel="h3"
+      <!-- ─── Identity Rail ─────────────────────────────────── -->
+      <aside
+        aria-label="Jake Selby profile"
+        class="pt-12 pb-8 border-b border-[var(--color-border)]
+               lg:pt-20 lg:pb-24 lg:border-b-0 lg:sticky lg:top-20 lg:self-start"
+      >
+        <!-- Photo + identity block:
+             mobile = flex row (photo left, text right)
+             desktop = flex col (photo above, text below) -->
+        <div class="flex items-center gap-5 lg:flex-col lg:items-start lg:gap-0">
+          <img
+            src="/jake.svg"
+            alt="Jake Selby"
+            width="112"
+            height="112"
+            class="rounded-full shrink-0 object-cover w-20 h-20 lg:w-28 lg:h-28 lg:mb-5"
           />
-        ))}
-      </div>
+          <div>
+            <h1 class="font-display font-bold text-3xl lg:text-[2rem] tracking-tight leading-[1.1] text-fg">
+              Jake Selby
+            </h1>
+            <p class="font-body font-medium text-sm text-fg-2 mt-1.5">
+              VP Engineering · Arcadia
+            </p>
+            <p class="font-body text-sm text-fg-dim mt-0.5">
+              Dad&nbsp;·&nbsp;Builder&nbsp;·&nbsp;Believer in tech for good
+            </p>
+            <p class="font-body text-xs text-fg-dim mt-0.5">
+              Hyattsville, MD
+            </p>
+          </div>
+        </div>
 
-      <div class="flex justify-end mt-5">
-        <a
-          href="/projects"
-          class="inline-flex items-center gap-1.5 font-body font-medium text-sm text-fg-2 hover:text-fg transition-colors duration-[120ms]"
-        >
-          View all projects
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
-          </svg>
-        </a>
-      </div>
-    </section>
+        <!-- Social / contact links -->
+        <div class="mt-5 lg:mt-7">
+          <SocialLinks />
+        </div>
 
+        <!-- Intro paragraph — mobile only (desktop has it top of right col) -->
+        <p class="lg:hidden font-body text-base text-fg-2 leading-relaxed mt-5 max-w-[55ch]">
+          I run engineering teams during the day, build things I care about at
+          night, and try to leave whatever I touch a little better than I found it.
+        </p>
+      </aside>
+
+      <!-- ─── Main content ───────────────────────────────────── -->
+      <div class="pb-16">
+
+        <!-- Intro paragraph — desktop only -->
+        <section class="hidden lg:block pt-20 pb-10">
+          <p class="font-body text-lg text-fg-2 leading-relaxed max-w-[60ch]">
+            I run engineering teams during the day, build things I care about at
+            night, and try to leave whatever I touch a little better than I found it.
+          </p>
+        </section>
+
+        <!-- ─── What I'm About ──────────────────────────────── -->
+        <section class="py-8 border-t border-[var(--color-border-subtle)]">
+          <h2 class="font-display font-semibold text-xl text-fg mb-3">What I'm About</h2>
+          <p class="font-body text-base text-fg-2 leading-relaxed max-w-[65ch]">
+            I believe access to technology, good information, and democratic
+            institutions should belong to everyone, not just the people who can
+            afford them. The work I find most meaningful is at that intersection:
+            healthcare systems that actually reach people, organizing tools that
+            challengers can afford, AI that earns trust rather than demanding it.
+          </p>
+        </section>
+
+        <!-- ─── Story ───────────────────────────────────────── -->
+        <section class="py-8 border-t border-[var(--color-border-subtle)]">
+          <h2 class="font-display font-semibold text-xl text-fg mb-3">How I Got Here</h2>
+          <p class="font-body text-base text-fg-2 leading-relaxed max-w-[65ch]">
+            I knocked doors for Obama in 2012, built data pipelines for the DNC in
+            2016, then spent seven years as an engineer and leader in healthcare.
+            Joined CareJourney as employee&nbsp;#7 and led engineering through its
+            acquisition by Arcadia, where I run a 48-person org today. Through all
+            of it, the thread is the same: I like building things that matter.
+          </p>
+        </section>
+
+        <!-- ─── Building ──────────────────────────────────────  -->
+        <section class="py-8 border-t border-[var(--color-border)]">
+          <div class="mb-6">
+            <h2 class="font-display font-semibold text-xl text-fg">Things I Build</h2>
+            <p class="font-body text-sm text-fg-2 mt-1">
+              Four production systems, each one solving a problem I care about personally.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {projects.map((project) => (
+              <ProjectCard
+                name={project.name}
+                tagline={project.tagline}
+                reason={project.reason}
+                brandColor={project.brandColor}
+                status={project.status}
+                stack={project.stack}
+                links={project.links}
+                variant="compact"
+                headingLevel="h3"
+              />
+            ))}
+          </div>
+
+          <div class="flex justify-end mt-5">
+            <a
+              href="/projects"
+              class="inline-flex items-center gap-1.5 font-body font-medium text-sm text-fg-2 hover:text-fg transition-colors duration-[120ms]"
+            >
+              All projects
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </section>
+
+        <!-- ─── Outside the Terminal ─────────────────────────── -->
+        <section class="py-8 border-t border-[var(--color-border-subtle)]">
+          <h2 class="font-display font-semibold text-xl text-fg mb-5">Outside the Terminal</h2>
+
+          <div class="space-y-3 font-body text-base text-fg-2 leading-relaxed max-w-[65ch]">
+            <p>Husband. Dad of two. Hyattsville, MD.</p>
+            <p>
+              Grew up playing basketball, baseball, wrestling, rugby, soccer,
+              tennis, and track. More of a watcher now: Ravens season ticket holder,
+              and at March Madness every year.
+            </p>
+            <p>
+              Plays guitar and drums, and likes a little of everything when it
+              comes to music.
+            </p>
+            <p>
+              Reads a lot about politics, geopolitics, and philosophy. Politics
+              because outcomes matter. Geopolitics because world power structures
+              and events are genuinely fascinating. Philosophy for the critical
+              thinking and the questions about meaning.
+            </p>
+            <p>
+              Outside of that: biking, hiking, cooking, gardening, the gym, and
+              time with friends and family.
+            </p>
+          </div>
+
+          <ul
+            aria-label="Interests"
+            class="flex flex-wrap gap-2 mt-6 list-none p-0"
+          >
+            {interests.map((interest) => (
+              <li>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-[4px] font-mono text-xs text-fg-2 bg-surface border border-[var(--color-border)]">
+                  {interest}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+      </div>
+    </div>
   </div>
 </Layout>

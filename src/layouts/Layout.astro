@@ -12,10 +12,13 @@ interface Props {
 
 const {
   title,
-  description = 'Jake Selby — VP Engineering at Arcadia and solo builder of production agentic-AI systems.',
+  description = 'Jake Selby — dad, builder, and believer in tech for good. VP Engineering at Arcadia, based in Hyattsville, MD.',
   currentPath = '/',
   hideFooter = false,
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, 'https://jakeselby.com').href;
+const ogImage = 'https://jakeselby.com/jake.svg';
 ---
 
 <!doctype html>
@@ -26,11 +29,29 @@ const {
     <meta name="description" content={description} />
     <meta name="author" content="Jake Selby" />
 
-    <!-- OG -->
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Google Search Console verification -->
+    <meta name="google-site-verification" content="3BzYlq9bJavBRSYOEeI7r5y1tdSVnOpqoeRHILBxI5M" />
+
+    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content="Jake Selby" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://jakeselby.com/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Jake Selby — VP Engineering · Dad · Builder · Believer in tech for good" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://jakeselby.com/og.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -42,10 +63,17 @@ const {
 
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <slot name="head" />
   </head>
   <body>
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-md focus:bg-[var(--color-accent)] focus:text-white focus:font-body focus:text-sm focus:font-medium"
+    >
+      Skip to content
+    </a>
     <SiteNav currentPath={currentPath} />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     {!hideFooter && <SiteFooter />}

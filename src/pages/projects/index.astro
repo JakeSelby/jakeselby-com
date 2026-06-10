@@ -31,14 +31,26 @@ const projects = [
   },
   {
     name: 'Groundwork',
-    tagline: 'Modern voter contact, built for campaigns that move fast.',
-    description: 'A full-stack political campaign field-operations platform — voter universe builder, geographic turf management, mobile-native canvassing (iPhone, offline-first with GRDB), AI assistant (AWS Bedrock/Claude), and team management. Designed as an NGP VAN alternative for challenger campaigns. Built; being donated to a progressive movement org.',
+    tagline: 'Modern voter contact, outside the machine.',
+    description: 'A full-stack political campaign field-operations platform — voter universe builder, geographic turf management, mobile-native canvassing (iPhone, offline-first with GRDB), AI assistant (AWS Bedrock/Claude), and team management. Designed as an NGP VAN alternative for challenger campaigns. Progressive campaigns shouldn\'t have to ask permission for their own data.',
     role: 'Solo-built, full BMAD product brief + Nx monorepo. React 19 + Vite SPA, NestJS API, PostgreSQL + PostGIS, S3/CloudFront, Swift iOS app.',
     brandColor: '#2D6A4F',
-    status: 'donating' as const,
+    status: 'gifted' as const,
     stack: ['React 19', 'Vite', 'NestJS', 'PostgreSQL', 'PostGIS', 'Swift', 'AWS S3/CloudFront'],
     links: {
-      app: { href: 'https://groundwork.staging.jakeselby.com/demo', label: 'Live demo' },
+      app: { href: 'https://groundwork.jakeselby.com/demo', label: 'Live demo' },
+    },
+  },
+  {
+    name: 'Fable',
+    tagline: 'A date-night companion for busy couples.',
+    description: 'A mobile app that removes the overhead of planning date nights. The core mechanic — independent async voting on a curated catalog of date ideas — surfaces genuine mutual interest without the back-and-forth of proposal and negotiation. When both partners vote yes on the same idea, a match is created. Built for couples in their 30s with young kids and demanding careers who want more intentional romance but lack the time to plan it.',
+    role: 'Solo-built. Swift iOS app, React Native, Node.js backend, AWS CDK deploy. I wanted to build something for my own life.',
+    brandColor: '#9333ea',
+    status: 'live' as const,
+    stack: ['Swift', 'React Native', 'Node.js', 'AWS CDK'],
+    links: {
+      app: { href: 'https://fable.jakeselby.com', label: 'Open app' },
     },
   },
 ];
@@ -46,10 +58,10 @@ const projects = [
 
 <Layout
   title="Projects — Jake Selby"
-  description="Three production systems, solo-built: Cortex (agentic-AI substrate), Consul (EA), Groundwork (civic field-ops)."
+  description="Jake Selby's side projects: Cortex (agentic-AI cognitive substrate), Consul (executive assistant), Groundwork (civic field-ops), and Fable (AI bedtime stories)."
   currentPath="/projects"
 >
-  <div class="max-w-3xl mx-auto px-6">
+  <div class="max-w-5xl mx-auto px-6">
 
     <!-- ─── Page hero ─────────────────────────────────────── -->
     <header class="pt-16 pb-10 lg:pt-20">
@@ -57,13 +69,13 @@ const projects = [
         Projects
       </h1>
       <p class="font-body text-lg text-fg-2 mt-2 max-w-[55ch]">
-        Three production systems, each solving a real problem. Solo-built,
+        Four production systems, each solving a real problem. Solo-built,
         spec-driven, live.
       </p>
     </header>
 
     <!-- ─── Card list ─────────────────────────────────────── -->
-    <div class="space-y-6 pb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-16">
       {projects.map((project) => (
         <ProjectCard
           name={project.name}

@@ -10,10 +10,11 @@ interface Link {
 interface Props {
   name: string;
   tagline: string;
+  reason?: string;
   description?: string;
   role?: string;
   brandColor: string;
-  status: 'live' | 'staging' | 'donating';
+  status: 'live' | 'staging' | 'donating' | 'gifted';
   stack: string[];
   links: {
     app: Link;
@@ -26,6 +27,7 @@ interface Props {
 const {
   name,
   tagline,
+  reason,
   description,
   role,
   brandColor,
@@ -61,9 +63,16 @@ const Heading = headingLevel;
   </div>
 
   <!-- Tagline -->
-  <p class="font-body font-medium text-lg text-fg-2 leading-snug">
+  <p class="font-body font-medium text-base text-fg-2 leading-snug">
     {tagline}
   </p>
+
+  <!-- Reason (compact variant) -->
+  {reason && (
+    <p class="font-body text-sm text-fg-dim leading-snug mt-1.5 italic">
+      {reason}
+    </p>
+  )}
 
   <!-- Full variant: description + role -->
   {!isCompact && description && (
