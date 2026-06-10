@@ -17,7 +17,7 @@ interface Props {
   status: 'live' | 'staging' | 'donating' | 'gifted';
   stack: string[];
   links: {
-    app: Link;
+    app?: Link;
     pitch?: Link;
   };
   variant?: 'compact' | 'full';
@@ -106,18 +106,20 @@ const Heading = headingLevel;
       !isCompact && 'pt-4 border-t border-[var(--color-border)] flex-wrap',
     ]}
   >
-    <a
-      href={links.app.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-[var(--color-border)] font-body font-medium text-sm text-fg-2 hover:text-fg hover:border-[var(--color-accent)] transition-colors duration-[120ms]"
-    >
-      {links.app.label}
-      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
-      </svg>
-      <span class="sr-only"> (opens in new tab)</span>
-    </a>
+    {links.app && (
+      <a
+        href={links.app.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-[var(--color-border)] font-body font-medium text-sm text-fg-2 hover:text-fg hover:border-[var(--color-accent)] transition-colors duration-[120ms]"
+      >
+        {links.app.label}
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+        </svg>
+        <span class="sr-only"> (opens in new tab)</span>
+      </a>
+    )}
 
     {links.pitch && (
       <a
