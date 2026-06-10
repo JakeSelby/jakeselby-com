@@ -1,6 +1,6 @@
 ---
 interface Props {
-  status: 'live' | 'staging' | 'donating';
+  status: 'live' | 'staging' | 'donating' | 'gifted';
 }
 
 const { status } = Astro.props;
@@ -15,7 +15,11 @@ const config = {
     classes: 'bg-amber-50 text-amber-700 border border-amber-200',
   },
   donating: {
-    label: 'Donating',
+    label: 'Gifted',
+    classes: 'bg-blue-50 text-blue-700 border border-blue-200',
+  },
+  gifted: {
+    label: 'Gifted',
     classes: 'bg-blue-50 text-blue-700 border border-blue-200',
   },
 } as const;
