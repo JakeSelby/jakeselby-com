@@ -1,0 +1,152 @@
+---
+interface Props {
+  currentPath: string;
+}
+const { currentPath } = Astro.props;
+
+const links = [
+  { href: '/projects', label: 'Projects' },
+  { href: '/resume', label: 'Resume' },
+];
+---
+
+<nav
+  id="site-nav"
+  aria-label="Main navigation"
+  class="sticky top-0 z-50 h-[56px] flex items-center bg-[var(--color-bg)] transition-all duration-200"
+>
+  <div class="w-full max-w-4xl mx-auto px-6 flex items-center justify-between">
+    <!-- Logo / name -->
+    <a
+      href="/"
+      class="font-body font-medium text-sm text-fg hover:text-accent transition-colors duration-[120ms]"
+      aria-label="Jake Selby – home"
+    >
+      Jake Selby
+    </a>
+
+    <!-- Desktop links -->
+    <div class="hidden sm:flex items-center gap-6">
+      {links.map(({ href, label }) => (
+        <a
+          href={href}
+          aria-current={currentPath === href ? 'page' : undefined}
+          class:list={[
+            'font-body font-medium text-sm transition-colors duration-[120ms]',
+            currentPath === href
+              ? 'text-fg border-b-2 border-accent pb-0.5'
+              : 'text-fg-2 hover:text-fg',
+          ]}
+        >
+          {label}
+        </a>
+      ))}
+      <a
+        href="mailto:jaketselby@gmail.com"
+        aria-label="Email Jake Selby"
+        class="font-body font-medium text-sm text-fg-2 hover:text-fg transition-colors duration-[120ms]"
+      >
+        ↗ Email
+      </a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button
+      id="nav-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open navigation menu"
+      class="sm:hidden p-2 -mr-2 text-fg-2 hover:text-fg"
+    >
+      <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+      </svg>
+      <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="hidden">
+        <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div
+    id="mobile-menu"
+    class="sm:hidden absolute top-full left-0 right-0 overflow-hidden max-h-0 transition-[max-height] duration-200 ease-in-out bg-[var(--color-bg)] border-b border-[var(--color-border)]"
+  >
+    <div class="px-6 py-2">
+      {links.map(({ href, label }) => (
+        <a
+          href={href}
+          aria-current={currentPath === href ? 'page' : undefined}
+          class:list={[
+            'block py-3 font-body font-medium text-base border-b border-[var(--color-border-subtle)]',
+            currentPath === href ? 'text-fg' : 'text-fg-2',
+          ]}
+        >
+          {label}
+        </a>
+      ))}
+      <a
+        href="mailto:jaketselby@gmail.com"
+        class="block py-3 font-body font-medium text-base text-fg-2"
+      >
+        Email ↗
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Scroll-aware nav border
+  const nav = document.getElementById('site-nav');
+  const sentinel = document.createElement('div');
+  sentinel.style.cssText = 'position:absolute;top:0;height:1px;width:1px;pointer-events:none;';
+  document.body.prepend(sentinel);
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (!nav) return;
+      if (!entry.isIntersecting) {
+        nav.style.borderBottom = '1px solid var(--color-border-subtle)';
+        nav.style.backdropFilter = 'blur(8px)';
+        nav.style.backgroundColor = 'rgb(250 250 249 / 0.92)';
+      } else {
+        nav.style.borderBottom = '';
+        nav.style.backdropFilter = '';
+        nav.style.backgroundColor = '';
+      }
+    },
+    { threshold: 1.0 }
+  );
+  observer.observe(sentinel);
+
+  // Mobile menu toggle
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconMenu = document.getElementById('icon-menu');
+  const iconClose = document.getElementById('icon-close');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Open navigation menu' : 'Close navigation menu');
+
+    if (menu) {
+      menu.style.maxHeight = isOpen ? '0' : '200px';
+    }
+    iconMenu?.classList.toggle('hidden', !isOpen);
+    iconClose?.classList.toggle('hidden', isOpen);
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!nav?.contains(e.target as Node)) {
+      if (toggle && menu) {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open navigation menu');
+        menu.style.maxHeight = '0';
+        iconMenu?.classList.remove('hidden');
+        iconClose?.classList.add('hidden');
+      }
+    }
+  });
+</script>

@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+
+# CDK
+infra/node_modules/
+infra/dist/
+infra/cdk.out/
+
+# macOS
+.DS_Store

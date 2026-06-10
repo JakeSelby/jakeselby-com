@@ -1,0 +1,269 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const experience = [
+  {
+    company: 'Arcadia',
+    role: 'Vice President of Engineering',
+    dateRange: 'Feb 2025 – Present',
+    location: 'Hyattsville, MD (hybrid/remote)',
+    note: '48-person Workflow Org · Reports to CTO',
+    bullets: [
+      'Co-led a major engineering reorg with the SVP of Engineering — built out the Workflow Org structure post-acquisition with 5 teams across App Platform, ContractIQ/Network Modeler, Population Management, Whole Person Care/Light Brigade, and cross-cutting Solution Architects + Data Engineering.',
+      'Personally introduced Cursor, agentic coding, and spec-driven design (now the default engineering practice across the Workflow Org) into Arcadia post-acquisition.',
+      'Co-designed Arcadia\'s Wave SDLC framework with the SVP of Engineering — the org-wide delivery methodology for the Workflow Org.',
+      'Sole owner of the agentic delivery system built on top of Wave — designed and maintains the full agentic knowledge and skill infrastructure: PRD authoring, spec generation, estimation, sprint kickoff, release documentation, and more.',
+      'Authored and substantively edited PRDs and SPECs across 8 different initiatives in the past 18 months.',
+      'Personally scaffolded Arcadia\'s shared agent infrastructure monorepo (Nx) — typed service clients, shared packages, and GitHub App–based CI for agent workflows across teams.',
+      'Shipped production care-management backend features end-to-end — architected and delivered agentically while running a 48-person org.',
+      'Key technical owner of Arcadia\'s new agentic Care Platform buildout (tasks, notifications, scheduling, assignments, care plans, and orchestration APIs).',
+      'Stack: TypeScript, NestJS, React, Kotlin, PostgreSQL, AWS (EKS, ECS), Kubernetes, Terraform, Auth0, dbt, Cursor + Claude + MCP, GitHub Actions.',
+    ],
+  },
+  {
+    company: 'CareJourney',
+    role: 'Vice President of Engineering',
+    dateRange: 'Mar 2022 – Feb 2025',
+    location: 'Arlington, VA (hybrid)',
+    note: 'Jul 2024 – Feb 2025 post-acquisition at Arcadia',
+    bullets: [
+      'Led the engineering org through acquisition by Arcadia (July 2024) and integration through the Feb 2025 Workflow Org transition. Owned all of R&D except product and analytics — software engineering, data engineering, DevOps, infosec.',
+      'Grew the CareJourney engineering org from 20 at promotion to a peak of 50, with 40 at acquisition.',
+      'Overhauled the legacy data lake — replaced EMR, Presto, Apache Hive, and a custom Python orchestration engine with Airflow and Snowflake; dramatically reduced cost and processing time.',
+      'Co-designed and led the full web platform from scratch — replacing a legacy Java app and Tableau dashboards; owned architecture end-to-end (Lambda compute, DynamoDB, OpenSearch, data pipelines, API design, deployment, and CI/CD).',
+      'Stack: Snowflake, MWAA/Apache Airflow, AWS Lambda + Serverless Framework, DynamoDB, OpenSearch, React + Next.js, CircleCI.',
+    ],
+  },
+  {
+    company: 'CareJourney',
+    role: 'Director, Software Engineering',
+    dateRange: 'Aug 2019 – Mar 2022',
+    location: 'Arlington, VA',
+    note: 'Team of 7 at promotion, grew to 20 by VPE promotion',
+    bullets: [
+      'Built CareJourney\'s entire frontend web presence from scratch — replacing legacy Tableau dashboards with a modern React/Next.js product.',
+      'Led major data processing architecture redesigns — significant gains in speed and cost.',
+      'Designed a fully serverless implementation (AWS Lambda + Serverless Framework + DynamoDB + OpenSearch) still running since the July 2024 acquisition with near-zero active support.',
+    ],
+  },
+  {
+    company: 'CareJourney',
+    role: 'Software Engineer',
+    dateRange: 'Jan 2017 – Aug 2019',
+    location: 'Arlington, VA',
+    bullets: [
+      'Built CareJourney\'s early data pipeline and frontend foundations — owned key product lines end-to-end as one of the first engineers.',
+    ],
+  },
+  {
+    company: 'Democratic National Committee',
+    role: 'Data Engineer',
+    dateRange: 'May 2015 – Jan 2017',
+    location: 'Washington, DC',
+    bullets: [
+      'Built and maintained the entire voter-contact data integration system between the DNC, the 2016 Democratic presidential campaign, and NGP VAN. Pipelines for: volunteer-entered field activity → DNC; data-science-team output → merged voter file → push back to NGP VAN and the campaign\'s other data servers. Top-of-cycle production data engineering at presidential-campaign stakes.',
+    ],
+  },
+];
+
+const earlier = [
+  'Field Organizer — Obama for America, VA (2012)',
+  'Data & Analytics Associate — 270 Strategies (2013–14)',
+  'Research Analyst — DNC Research (2014–15)',
+];
+
+const personalProjects = [
+  {
+    name: 'Cortex / Consul',
+    period: 'Active build, 2026',
+    description: 'Agentic-AI platform — Cortex (substrate) + Consul (EA). Solo-built with full BMAD PRD/architecture: Hono agent-runtime, Next.js BFF, MCP server (OAuth, 17-tool registry), pgvector memory, iOS + Mac surfaces, production ECS deploy.',
+  },
+  {
+    name: 'Groundwork',
+    period: 'Designed and built, 2026; donating to a movement org',
+    description: 'NGP VAN alternative for challenger campaigns — voter file, canvassing API, offline-first iOS app (Swift/GRDB). BMAD brief + Nx monorepo.',
+    url: 'https://groundwork.jakeselby.com',
+  },
+];
+
+const skillGroups = [
+  {
+    label: 'Leadership & Architecture',
+    skills: '48-person org (4 EMs, 5 teams), multi-quarter roadmaps, M&A leadership, performance management; distributed systems, multi-tenant SaaS, event-driven and serverless, agentic/MCP-first, multi-tenant access control (RLS, ABAC, tenant isolation).',
+  },
+  {
+    label: 'Agentic AI & Product',
+    skills: 'MCP server design (OAuth bearer, tool registry), single/multi-agent loops + hand-off, persistent memory (pgvector, episode-store), decision explainability, Cursor + Claude dev environment, BMAD spec-driven delivery; PRD + SPEC authoring, sprint/wave planning.',
+  },
+  {
+    label: 'Languages',
+    skills: 'TypeScript / JavaScript, Python, SQL, Kotlin, Bash, Swift, Java.',
+  },
+  {
+    label: 'Stack',
+    skills: 'TypeScript/NestJS/Hono/React/Next.js, Kotlin, PostgreSQL + pgvector, Snowflake, Airflow, AWS (Lambda, EKS, ECS), Terraform, Auth0, MCP.',
+  },
+];
+---
+
+<Layout
+  title="Resume — Jake Selby"
+  description="Jake Selby resume — VP Engineering, agentic-AI builder, CareJourney → Arcadia acquisition."
+  currentPath="/resume"
+>
+  <!-- PDF download button -->
+  <div class="pdf-download-btn fixed bottom-6 right-6 z-50 no-print">
+    <button
+      onclick="window.print()"
+      class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-[var(--color-accent)] text-white font-body font-medium text-sm hover:bg-black transition-colors duration-[120ms] shadow-md"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
+      </svg>
+      Download PDF
+    </button>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-6 py-12 pb-24">
+
+    <!-- ─── Header ──────────────────────────────────────── -->
+    <header class="mb-10">
+      <h1 class="font-display font-bold text-4xl tracking-tight text-fg">Jake Selby</h1>
+      <p class="font-body text-lg text-fg-2 mt-1">Vice President of Engineering · Arcadia</p>
+      <p class="font-body text-sm text-fg-2 mt-2 flex flex-wrap gap-3">
+        <a href="mailto:jaketselby@gmail.com" class="hover:text-fg transition-colors duration-[120ms]">jaketselby@gmail.com</a>
+        <span class="text-fg-dim" aria-hidden="true">·</span>
+        <a href="https://linkedin.com/in/jake-selby" target="_blank" rel="noopener noreferrer" class="hover:text-fg transition-colors duration-[120ms]">linkedin.com/in/jake-selby</a>
+        <span class="text-fg-dim" aria-hidden="true">·</span>
+        <a href="https://github.com/JakeSelby" target="_blank" rel="noopener noreferrer" class="hover:text-fg transition-colors duration-[120ms]">github.com/JakeSelby</a>
+      </p>
+    </header>
+
+    <!-- ─── Summary ─────────────────────────────────────── -->
+    <section aria-labelledby="summary-heading" class="mb-10">
+      <h2 id="summary-heading" class="resume-section-heading">Summary</h2>
+      <p class="font-body text-base text-fg-2 leading-relaxed">
+        Engineering leader who helped build CareJourney from early employee through its acquisition by
+        Arcadia; now runs a 48-person org. Early, hands-on builder of agentic systems: architects and
+        directs agents to ship production-quality software, authors spec-driven PRDs, and builds personal
+        agentic-AI products on the side. Spec-driven delivery, MCP, Cursor&nbsp;+&nbsp;Claude.
+      </p>
+    </section>
+
+    <!-- ─── Highlights ───────────────────────────────────── -->
+    <section aria-labelledby="highlights-heading" class="mb-10">
+      <h2 id="highlights-heading" class="resume-section-heading">Selected Highlights</h2>
+      <ul class="space-y-3 list-none p-0">
+        <li class="font-body text-base text-fg-2 leading-relaxed pl-4 border-l-2 border-[var(--color-border)]">
+          <strong class="font-semibold text-fg">CareJourney acquisition (July 2024)</strong> — joined as employee&nbsp;#7 and helped build the company from the ground up into a $20M+ platform sold to Arcadia. As VPE, led engineering through the deal and owned IT/tech due diligence end-to-end.
+        </li>
+        <li class="font-body text-base text-fg-2 leading-relaxed pl-4 border-l-2 border-[var(--color-border)]">
+          <strong class="font-semibold text-fg">Technical breadth across paradigms</strong> — greenfielded CareJourney's production data platform (Snowflake, Airflow, Lambda, serverless APIs); at Arcadia, inherited and modernized a TypeScript/NestJS/Kotlin/Postgres/EKS estate while shipping care-management features and agentic delivery infrastructure.
+        </li>
+        <li class="font-body text-base text-fg-2 leading-relaxed pl-4 border-l-2 border-[var(--color-border)]">
+          <strong class="font-semibold text-fg">Building with LLMs since ChatGPT launched (Nov 2022), agent-first ever since</strong> — Anthropic Claude 2 hackathon (2023); 50+ personal AI/LLM repositories; current trio of Cortex (substrate), Consul (EA), and Groundwork (civic infrastructure), all solo-built with full BMAD product theses.
+        </li>
+        <li class="font-body text-base text-fg-2 leading-relaxed pl-4 border-l-2 border-[var(--color-border)]">
+          <strong class="font-semibold text-fg">Lived experience on every side</strong> — Obama 2012 field organizer → DNC research analyst → DNC data engineer → CareJourney SE → Director → VPE → Arcadia VPE.
+        </li>
+      </ul>
+    </section>
+
+    <!-- ─── Experience ───────────────────────────────────── -->
+    <section aria-labelledby="experience-heading" class="mb-10">
+      <h2 id="experience-heading" class="resume-section-heading">Experience</h2>
+      <div class="space-y-8">
+        {experience.map((job) => (
+          <article class="resume-entry">
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5 sm:gap-4">
+              <div>
+                <h3 class="font-body font-bold text-base text-fg">{job.company}</h3>
+                <p class="font-body font-medium text-base text-fg-2">{job.role}</p>
+                {job.location && (
+                  <p class="font-body text-sm text-fg-dim">{job.location}{job.note ? ` · ${job.note}` : ''}</p>
+                )}
+              </div>
+              <time class="font-body text-sm text-fg-dim whitespace-nowrap shrink-0">{job.dateRange}</time>
+            </div>
+            <ul class="mt-3 space-y-1.5 list-none p-0">
+              {job.bullets.map((bullet) => (
+                <li class="font-body text-sm sm:text-base text-fg-2 leading-relaxed pl-4 relative before:absolute before:left-0 before:top-[0.6em] before:w-1 before:h-1 before:rounded-full before:bg-fg-dim">
+                  {bullet}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+
+        <!-- Earlier roles -->
+        <div>
+          <p class="font-body text-sm text-fg-dim italic">
+            Earlier: {earlier.join('; ')}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Personal Projects ─────────────────────────────── -->
+    <section aria-labelledby="projects-heading" class="mb-10">
+      <h2 id="projects-heading" class="resume-section-heading">Personal Projects</h2>
+      <div class="space-y-4">
+        {personalProjects.map((p) => (
+          <article class="resume-entry">
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
+              <h3 class="font-body font-bold text-base text-fg">{p.name}</h3>
+              <time class="font-body text-sm text-fg-dim">{p.period}</time>
+            </div>
+            <p class="font-body text-sm sm:text-base text-fg-2 leading-relaxed mt-1">
+              {p.description}
+              {p.url && (
+                <> — <a href={p.url} class="underline underline-offset-2 hover:text-fg transition-colors duration-[120ms]">{p.url.replace('https://', '')}</a></>
+              )}
+            </p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- ─── Skills ────────────────────────────────────────── -->
+    <section aria-labelledby="skills-heading" class="mb-10">
+      <h2 id="skills-heading" class="resume-section-heading">Skills</h2>
+      <div class="space-y-3">
+        {skillGroups.map(({ label, skills }) => (
+          <div class="flex flex-col sm:flex-row sm:gap-4">
+            <p class="font-body font-semibold text-sm text-fg shrink-0 sm:w-48">{label}</p>
+            <p class="font-body text-sm sm:text-base text-fg-2 leading-relaxed">{skills}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ─── Education ─────────────────────────────────────── -->
+    <section aria-labelledby="education-heading">
+      <h2 id="education-heading" class="resume-section-heading">Education</h2>
+      <article class="resume-entry">
+        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
+          <h3 class="font-body font-bold text-base text-fg">Virginia Commonwealth University</h3>
+          <time class="font-body text-sm text-fg-dim">2011</time>
+        </div>
+        <p class="font-body text-base text-fg-2">Bachelor of Arts, Philosophy</p>
+      </article>
+    </section>
+
+  </div>
+</Layout>
+
+<style>
+  .resume-section-heading {
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-fg-dim);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    margin-top: 0;
+  }
+</style>
