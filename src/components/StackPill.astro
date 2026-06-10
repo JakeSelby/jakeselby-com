@@ -1,0 +1,15 @@
+---
+interface Props {
+  label: string;
+  accentColor?: string;
+}
+
+const { label, accentColor } = Astro.props;
+---
+
+<span
+  class="inline-flex items-center px-2.5 py-0.5 rounded-[4px] font-mono text-xs text-fg-2 bg-surface border border-[var(--color-border)]"
+  style={accentColor ? `border-bottom: 2px solid ${accentColor};` : undefined}
+>
+  {label}
+</span>

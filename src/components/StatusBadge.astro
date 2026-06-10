@@ -1,0 +1,34 @@
+---
+interface Props {
+  status: 'live' | 'staging' | 'donating';
+}
+
+const { status } = Astro.props;
+
+const config = {
+  live: {
+    label: 'Live',
+    classes: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+  },
+  staging: {
+    label: 'Staging',
+    classes: 'bg-amber-50 text-amber-700 border border-amber-200',
+  },
+  donating: {
+    label: 'Donating',
+    classes: 'bg-blue-50 text-blue-700 border border-blue-200',
+  },
+} as const;
+
+const { label, classes } = config[status];
+---
+
+<span
+  class:list={[
+    'inline-flex items-center px-2 py-0.5 rounded-[4px] font-body font-medium text-xs tracking-wide',
+    classes,
+  ]}
+>
+  <span class="sr-only">Project status: </span>
+  {label}
+</span>

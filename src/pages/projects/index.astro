@@ -1,0 +1,84 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const projects = [
+  {
+    name: 'Cortex',
+    tagline: 'An AI that remembers who matters to you, tracks what you\'ve committed to, and earns the right to act on your behalf.',
+    description: 'Ambient agentic-AI cognitive substrate — per-user memory (pgvector episode store), behavioural rules with lifecycle management, graduated trust governance (per-counterparty autonomy levels), a 17-tool MCP server (OAuth bearer), and a full action ledger with provenance. The substrate that Consul runs on. Phase 0 founder dogfood, live in production.',
+    role: 'Solo-built with full BMAD product thesis. Hono agent-runtime, Next.js 15 BFF, ECS Fargate, Aurora Postgres, iOS and Mac surfaces in progress.',
+    brandColor: '#60a5fa',
+    status: 'live' as const,
+    stack: ['TypeScript', 'Hono', 'Next.js 15', 'PostgreSQL', 'pgvector', 'MCP', 'AWS ECS', 'Auth0'],
+    links: {
+      app: { href: 'https://cortex.jakeselby.com', label: 'Open app' },
+      pitch: { href: 'https://cortex.jakeselby.com/pitch/builders', label: 'Builders pitch' },
+    },
+  },
+  {
+    name: 'Consul',
+    tagline: 'Your ambient AI executive assistant.',
+    description: 'Personal executive assistant built on the Cortex substrate. Web + iOS + Mac surfaces for memory review, rules inspection, trust ledger, and conversation. Consul is the user-facing product; Cortex is the cognitive engine beneath it. Single-user Phase 0, live in production.',
+    role: 'Solo-built. Next.js 15 App Router, React 19, Tailwind v4 + Mantine v8, ECS Fargate deploy.',
+    brandColor: '#1E3A8A',
+    status: 'live' as const,
+    stack: ['TypeScript', 'Next.js 15', 'React 19', 'Tailwind v4', 'Mantine', 'AWS ECS'],
+    links: {
+      app: { href: 'https://consul.jakeselby.com', label: 'Open app' },
+      pitch: { href: 'https://consul.jakeselby.com/pitch', label: 'Product pitch' },
+    },
+  },
+  {
+    name: 'Groundwork',
+    tagline: 'Modern voter contact, built for campaigns that move fast.',
+    description: 'A full-stack political campaign field-operations platform — voter universe builder, geographic turf management, mobile-native canvassing (iPhone, offline-first with GRDB), AI assistant (AWS Bedrock/Claude), and team management. Designed as an NGP VAN alternative for challenger campaigns. Built; being donated to a progressive movement org.',
+    role: 'Solo-built, full BMAD product brief + Nx monorepo. React 19 + Vite SPA, NestJS API, PostgreSQL + PostGIS, S3/CloudFront, Swift iOS app.',
+    brandColor: '#2D6A4F',
+    status: 'donating' as const,
+    stack: ['React 19', 'Vite', 'NestJS', 'PostgreSQL', 'PostGIS', 'Swift', 'AWS S3/CloudFront'],
+    links: {
+      app: { href: 'https://groundwork.staging.jakeselby.com/demo', label: 'Live demo' },
+    },
+  },
+];
+---
+
+<Layout
+  title="Projects — Jake Selby"
+  description="Three production systems, solo-built: Cortex (agentic-AI substrate), Consul (EA), Groundwork (civic field-ops)."
+  currentPath="/projects"
+>
+  <div class="max-w-3xl mx-auto px-6">
+
+    <!-- ─── Page hero ─────────────────────────────────────── -->
+    <header class="pt-16 pb-10 lg:pt-20">
+      <h1 class="font-display font-bold text-3xl lg:text-4xl tracking-tight text-fg">
+        Projects
+      </h1>
+      <p class="font-body text-lg text-fg-2 mt-2 max-w-[55ch]">
+        Three production systems, each solving a real problem. Solo-built,
+        spec-driven, live.
+      </p>
+    </header>
+
+    <!-- ─── Card list ─────────────────────────────────────── -->
+    <div class="space-y-6 pb-16">
+      {projects.map((project) => (
+        <ProjectCard
+          name={project.name}
+          tagline={project.tagline}
+          description={project.description}
+          role={project.role}
+          brandColor={project.brandColor}
+          status={project.status}
+          stack={project.stack}
+          links={project.links}
+          variant="full"
+          headingLevel="h2"
+        />
+      ))}
+    </div>
+
+  </div>
+</Layout>

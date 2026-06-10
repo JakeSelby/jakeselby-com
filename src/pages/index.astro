@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = [
+  {
+    name: 'Cortex',
+    tagline: 'An AI that remembers who matters to you, tracks what you\'ve committed to, and earns the right to act on your behalf.',
+    brandColor: '#60a5fa',
+    status: 'live' as const,
+    stack: ['TypeScript', 'Hono', 'pgvector', 'MCP'],
+    links: {
+      app: { href: 'https://cortex.jakeselby.com', label: 'Open app' },
+      pitch: { href: 'https://cortex.jakeselby.com/pitch/builders', label: 'Read pitch' },
+    },
+  },
+  {
+    name: 'Consul',
+    tagline: 'Your ambient AI executive assistant.',
+    brandColor: '#1E3A8A',
+    status: 'live' as const,
+    stack: ['Next.js 15', 'React 19', 'Tailwind'],
+    links: {
+      app: { href: 'https://consul.jakeselby.com', label: 'Open app' },
+      pitch: { href: 'https://consul.jakeselby.com/pitch', label: 'Read pitch' },
+    },
+  },
+  {
+    name: 'Groundwork',
+    tagline: 'Modern voter contact, built for campaigns that move fast.',
+    brandColor: '#2D6A4F',
+    status: 'donating' as const,
+    stack: ['React', 'NestJS', 'PostGIS'],
+    links: {
+      app: { href: 'https://groundwork.staging.jakeselby.com/demo', label: 'See demo' },
+    },
+  },
+];
+---
+
+<Layout
+  title="Jake Selby"
+  description="VP Engineering at Arcadia and solo builder of production agentic-AI systems."
+  currentPath="/"
+>
+  <div class="max-w-4xl mx-auto px-6">
+
+    <!-- ─── Hero ──────────────────────────────────────────── -->
+    <section class="pt-16 pb-8 lg:pt-20 lg:pb-10">
+      <h1 class="font-display font-bold text-4xl lg:text-5xl tracking-tight leading-[1.1] text-fg">
+        Jake Selby
+      </h1>
+      <p class="font-body text-base text-fg-2 mt-1.5">
+        Vice President of Engineering · <span class="text-fg">Arcadia</span>
+      </p>
+      <p class="font-body text-lg text-fg-2 leading-snug mt-3 max-w-[55ch]">
+        Engineering leader who helped build CareJourney from employee&nbsp;#7
+        through acquisition — now running 48 engineers at Arcadia while building
+        agentic-AI products on the side.
+      </p>
+    </section>
+
+    <!-- ─── Currently ────────────────────────────────────── -->
+    <section class="py-4 border-t border-[var(--color-border-subtle)]">
+      <p class="font-body text-base text-fg-2">
+        <span class="font-medium text-xs tracking-wide uppercase text-fg-dim mr-2">Currently</span>
+        VPE at Arcadia (48 engineers) · Building Cortex, an ambient agentic-AI
+        cognitive substrate, in production.
+      </p>
+    </section>
+
+    <!-- ─── About ─────────────────────────────────────────── -->
+    <section class="py-6">
+      <p class="font-body text-base text-fg-2 leading-relaxed max-w-[65ch]">
+        I joined CareJourney as employee&nbsp;#7, built the production data
+        platform, and led engineering through its acquisition by Arcadia in
+        July&nbsp;2024. Now I run a 48-person org while solo-shipping production
+        agentic-AI systems — Cortex (cognitive substrate), Consul (EA), and
+        Groundwork (civic field-ops). I've been building with LLMs since
+        ChatGPT launched; agent-first ever since.
+      </p>
+    </section>
+
+    <!-- ─── Projects preview ──────────────────────────────── -->
+    <section class="pt-10 pb-12 border-t border-[var(--color-border)]">
+      <div class="flex items-baseline justify-between mb-6">
+        <h2 class="font-display font-semibold text-2xl text-fg">Projects</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {projects.map((project) => (
+          <ProjectCard
+            name={project.name}
+            tagline={project.tagline}
+            brandColor={project.brandColor}
+            status={project.status}
+            stack={project.stack}
+            links={project.links}
+            variant="compact"
+            headingLevel="h3"
+          />
+        ))}
+      </div>
+
+      <div class="flex justify-end mt-5">
+        <a
+          href="/projects"
+          class="inline-flex items-center gap-1.5 font-body font-medium text-sm text-fg-2 hover:text-fg transition-colors duration-[120ms]"
+        >
+          View all projects
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</Layout>
