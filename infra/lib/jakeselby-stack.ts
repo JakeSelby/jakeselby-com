@@ -49,10 +49,12 @@ export class JakeSelbyStack extends cdk.Stack {
     });
 
     // ── S3 Bucket ─────────────────────────────────────────────────────────────
+    // Versioned so a bad `s3 sync --delete` is recoverable; old versions expire after 30 days.
     const bucket = new s3.Bucket(this, 'WebBucket', {
       bucketName: 'example-site-web',
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
-      versioned: false,
+      versioned: true,
+      lifecycleRules: [{ noncurrentVersionExpiration: cdk.Duration.days(30) }],
       removalPolicy: cdk.RemovalPolicy.RETAIN,
       autoDeleteObjects: false,
     });
