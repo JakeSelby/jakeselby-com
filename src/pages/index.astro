@@ -9,7 +9,8 @@ const projects = [
     tagline: 'An AI that earns the right to act on your behalf.',
     reason: 'I wanted to build a cognitive substrate for my agents to govern their behavior.',
     brandColor: '#60a5fa',
-    status: 'live' as const,
+    statusLabel: 'MVP prod · dogfood',
+    statusTone: 'production' as const,
     stack: ['TypeScript', 'Hono', 'pgvector', 'MCP'],
     links: {
       pitch: { href: 'https://cortex.jakeselby.com/pitch/builders', label: 'Explainer' },
@@ -20,7 +21,8 @@ const projects = [
     tagline: 'Your ambient AI executive assistant.',
     reason: "I've always wanted to make Jarvis from Iron Man — an agent that knows everything about me and helps my life.",
     brandColor: '#1E3A8A',
-    status: 'live' as const,
+    statusLabel: 'Alpha prod · MVP dev',
+    statusTone: 'alpha' as const,
     stack: ['Next.js 15', 'React 19', 'Tailwind'],
     links: {
       pitch: { href: 'https://consul.jakeselby.com/pitch', label: 'Explainer' },
@@ -31,7 +33,8 @@ const projects = [
     tagline: 'Modern voter contact, outside the machine.',
     reason: "Progressive campaigns shouldn't have to ask permission for their own data.",
     brandColor: '#2D6A4F',
-    status: 'gifted' as const,
+    statusLabel: 'In production',
+    statusTone: 'production' as const,
     stack: ['React', 'NestJS', 'PostGIS'],
     links: {
       app: { href: 'https://groundwork.jakeselby.com/demo', label: 'See demo' },
@@ -42,10 +45,23 @@ const projects = [
     tagline: 'A date-night companion for busy couples.',
     reason: 'I wanted to build a fun app for my wife and I to plan dates with — now expanding it to friends and others.',
     brandColor: '#9333ea',
-    status: 'live' as const,
+    statusLabel: 'TestFlight',
+    statusTone: 'beta' as const,
     stack: ['Swift', 'React Native', 'Node.js'],
     links: {
       app: { href: 'https://fable.jakeselby.com', label: 'Explainer' },
+    },
+  },
+  {
+    name: 'Agent Harness',
+    tagline: 'The rules, skills and hooks that make my coding agents legible.',
+    reason: 'I wanted a public, installable version of the harness I run every day, so I could compare it with others and cross-pollinate with work.',
+    brandColor: '#d97706',
+    statusLabel: 'v0.1 · open source',
+    statusTone: 'beta' as const,
+    stack: ['Claude Code', 'Python', 'Markdown'],
+    links: {
+      repo: { href: 'https://github.com/JakeSelby/agent-harness', label: 'GitHub' },
     },
   },
 ];
@@ -70,7 +86,7 @@ const interests = [
         "@id": "https://jakeselby.com/#jake",
         "name": "Jake Selby",
         "url": "https://jakeselby.com",
-        "image": "https://jakeselby.com/og.png",
+        "image": "https://jakeselby.com/jake.png",
         "jobTitle": "VP Engineering",
         "worksFor": {
           "@type": "Organization",
@@ -122,11 +138,11 @@ const interests = [
              desktop = flex col (photo above, text below) -->
         <div class="flex items-center gap-5 lg:flex-col lg:items-start lg:gap-0">
           <img
-            src="/jake.svg"
-            alt="Jake Selby"
+            src="/jake.png"
+            alt="Jake Selby smiling outdoors with mountains in the background"
             width="112"
             height="112"
-            class="rounded-full shrink-0 object-cover w-20 h-20 lg:w-28 lg:h-28 lg:mb-5"
+            class="rounded-full shrink-0 object-cover object-center w-20 h-20 lg:w-28 lg:h-28 lg:mb-5 ring-2 ring-[var(--color-border)]"
           />
           <div>
             <h1 class="font-display font-bold text-3xl lg:text-[2rem] tracking-tight leading-[1.1] text-fg">
@@ -151,7 +167,7 @@ const interests = [
 
         <!-- Intro paragraph — mobile only (desktop has it top of right col) -->
         <p class="lg:hidden font-body text-base text-fg-2 leading-relaxed mt-5 max-w-[55ch]">
-          I run engineering teams during the day, build things I care about at
+          I run product and engineering teams during the day, build things I care about at
           night, and try to leave whatever I touch a little better than I found it.
         </p>
       </aside>
@@ -162,7 +178,7 @@ const interests = [
         <!-- Intro paragraph — desktop only -->
         <section class="hidden lg:block pt-20 pb-10">
           <p class="font-body text-lg text-fg-2 leading-relaxed max-w-[60ch]">
-            I run engineering teams during the day, build things I care about at
+            I run product and engineering teams during the day, build things I care about at
             night, and try to leave whatever I touch a little better than I found it.
           </p>
         </section>
@@ -207,7 +223,8 @@ const interests = [
                 tagline={project.tagline}
                 reason={project.reason}
                 brandColor={project.brandColor}
-                status={project.status}
+                statusLabel={project.statusLabel}
+                statusTone={project.statusTone}
                 stack={project.stack}
                 links={project.links}
                 variant="compact"
