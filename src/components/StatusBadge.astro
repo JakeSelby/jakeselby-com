@@ -1,36 +1,23 @@
 ---
 interface Props {
-  status: 'live' | 'staging' | 'donating' | 'gifted';
+  label: string;
+  tone?: 'production' | 'alpha' | 'beta' | 'gifted';
 }
 
-const { status } = Astro.props;
+const { label, tone = 'production' } = Astro.props;
 
-const config = {
-  live: {
-    label: 'Live',
-    classes: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
-  },
-  staging: {
-    label: 'Staging',
-    classes: 'bg-amber-50 text-amber-700 border border-amber-200',
-  },
-  donating: {
-    label: 'Gifted',
-    classes: 'bg-blue-50 text-blue-700 border border-blue-200',
-  },
-  gifted: {
-    label: 'Gifted',
-    classes: 'bg-blue-50 text-blue-700 border border-blue-200',
-  },
+const toneClasses = {
+  production: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+  alpha: 'bg-amber-50 text-amber-700 border border-amber-200',
+  beta: 'bg-violet-50 text-violet-700 border border-violet-200',
+  gifted: 'bg-blue-50 text-blue-700 border border-blue-200',
 } as const;
-
-const { label, classes } = config[status];
 ---
 
 <span
   class:list={[
-    'inline-flex items-center px-2 py-0.5 rounded-[4px] font-body font-medium text-xs tracking-wide',
-    classes,
+    'inline-flex shrink-0 items-center px-2 py-0.5 rounded-[4px] font-body font-medium text-xs tracking-wide whitespace-nowrap',
+    toneClasses[tone],
   ]}
 >
   <span class="sr-only">Project status: </span>
