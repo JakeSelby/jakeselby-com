@@ -71,6 +71,15 @@ export class JakeSelbyStack extends cdk.Stack {
 function handler(event) {
   var request = event.request;
   var uri = request.uri;
+  // The agent-harness reference lives on its own subdomain; keep the pretty URL working.
+  if (uri === '/agent-harness' || uri.indexOf('/agent-harness/') === 0) {
+    var rest = uri.substring(14);
+    return {
+      statusCode: 301,
+      statusDescription: 'Moved Permanently',
+      headers: { location: { value: 'https://agent-harness.jakeselby.com' + (rest === '' ? '/' : rest) } },
+    };
+  }
   if (uri.endsWith('/')) {
     request.uri += 'index.html';
   } else if (!uri.includes('.')) {
