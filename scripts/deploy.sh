@@ -41,6 +41,16 @@ PAGES=$(find dist -name index.html | wc -l | tr -d ' ')
 [ "$PAGES" -ge 3 ] || { echo "✗ Only $PAGES pages built — refusing to sync." >&2; exit 1; }
 echo "  $PAGES pages, artifact complete"
 
+# The measurement id is read from .env at build time, so a missing .env ships a site with
+# no analytics and says nothing. Fail loudly instead.
+if ! grep -q "googletagmanager.com/gtag/js" dist/index.html; then
+  if [ "${ALLOW_NO_ANALYTICS:-0}" != "1" ]; then
+    echo "✗ Built site carries no Google tag. Set PUBLIC_GA_MEASUREMENT_ID in .env, or ALLOW_NO_ANALYTICS=1." >&2
+    exit 1
+  fi
+  echo "! No Google tag in the build; continuing because ALLOW_NO_ANALYTICS=1." >&2
+fi
+
 echo "▶ Deploying CDK stack..."
 (cd infra && npx cdk deploy --require-approval never)
 

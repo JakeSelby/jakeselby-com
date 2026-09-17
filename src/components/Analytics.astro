@@ -1,0 +1,41 @@
+---
+/**
+ * Google Analytics 4 via the Google tag (gtag.js).
+ *
+ * Renders nothing unless PUBLIC_GA_MEASUREMENT_ID is set *and* this is a production
+ * build, so `astro dev` never reports local traffic to the live property. Set the id
+ * in `.env` (see `.env.example`); it is a public identifier and ships in the HTML.
+ *
+ * The bootstrap is emitted with `set:html` rather than `define:vars` on purpose.
+ * `define:vars` wraps the script in an IIFE, which keeps `gtag` off `window` and
+ * silently breaks any later `gtag('event', …)` call. This renders Google's snippet
+ * verbatim, so `gtag` stays a global function declaration as documented.
+ */
+const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID?.trim();
+
+// Interpolated straight into a script body, so a malformed value must fail the build
+// rather than emit broken JavaScript.
+if (measurementId && !/^G-[A-Z0-9]+$/i.test(measurementId)) {
+  throw new Error(
+    `PUBLIC_GA_MEASUREMENT_ID must look like G-XXXXXXXXXX, got "${measurementId}". ` +
+      'Copy it from GA4 Admin → Data streams → your web stream.',
+  );
+}
+
+const enabled = import.meta.env.PROD && Boolean(measurementId);
+
+const bootstrap = `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${measurementId}');`;
+---
+
+{
+  enabled && (
+    <Fragment>
+      <link rel="preconnect" href="https://www.googletagmanager.com" />
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`} />
+      <script is:inline set:html={bootstrap} />
+    </Fragment>
+  )
+}

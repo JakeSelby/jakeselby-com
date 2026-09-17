@@ -41,3 +41,13 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## Analytics
+
+Google Analytics 4 is wired through [src/components/Analytics.astro](src/components/Analytics.astro)
+and rendered from the shared layout, so every page is covered.
+
+Copy `.env.example` to `.env` and set `PUBLIC_GA_MEASUREMENT_ID` to the measurement id of your
+web data stream (`G-XXXXXXXXXX`). The tag is emitted only in production builds — `npm run dev`
+never reports traffic — and `scripts/deploy.sh` refuses to ship a build that carries no tag
+unless you pass `ALLOW_NO_ANALYTICS=1`.
