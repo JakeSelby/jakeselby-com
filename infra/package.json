@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
+    "test": "tsx --test lib/*.test.ts",
     "cdk": "cdk"
   },
   "dependencies": {
