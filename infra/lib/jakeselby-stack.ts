@@ -6,6 +6,11 @@ import * as route53 from 'aws-cdk-lib/aws-route53';
 import * as targets from 'aws-cdk-lib/aws-route53-targets';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
+import type { InfraConfig } from './config.js';
+
+interface JakeSelbyStackProps extends cdk.StackProps {
+  config: InfraConfig;
+}
 
 /**
  * jakeselby.com personal landing site
@@ -16,9 +21,7 @@ import { Construct } from 'constructs';
  *   - CloudFront distribution — HTTPS-only, custom domain, index.html rewriting
  *   - Route53 A records — apex + www → CloudFront
  *
- * Prerequisites:
- *   - Hosted zone jakeselby.com (Z0546426Z22AIAM1PV63) already exists in Route53
- *   - AWS_PROFILE=cortex, AWS_REGION=us-east-1
+ * Deployment configuration: see the README.
  */
 export class JakeSelbyStack extends cdk.Stack {
   /** S3 bucket name — used by the deploy script to sync dist/ */
@@ -26,15 +29,16 @@ export class JakeSelbyStack extends cdk.Stack {
   /** CloudFront distribution ID — used by the deploy script for cache invalidation */
   readonly distributionId: string;
 
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: JakeSelbyStackProps) {
     super(scope, id, props);
+    const { config } = props;
 
     // ── Hosted Zone (import existing) ─────────────────────────────────────────
     const hostedZone = route53.HostedZone.fromHostedZoneAttributes(
       this,
       'HostedZone',
       {
-        hostedZoneId: 'Z0546426Z22AIAM1PV63',
+        hostedZoneId: config.hostedZoneId,
         zoneName: 'jakeselby.com',
       },
     );
@@ -51,7 +55,7 @@ export class JakeSelbyStack extends cdk.Stack {
     // ── S3 Bucket ─────────────────────────────────────────────────────────────
     // Versioned so a bad `s3 sync --delete` is recoverable; old versions expire after 30 days.
     const bucket = new s3.Bucket(this, 'WebBucket', {
-      bucketName: 'jakeselby-com-web',
+      bucketName: config.bucketName,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       versioned: true,
       lifecycleRules: [{ noncurrentVersionExpiration: cdk.Duration.days(30) }],
@@ -66,7 +70,7 @@ export class JakeSelbyStack extends cdk.Stack {
     // Without this function, /resume → 403 from S3 (file key "resume" doesn't exist).
     // This rewrites clean paths to their index.html equivalents.
     const routingFunction = new cloudfront.Function(this, 'RoutingFunction', {
-      functionName: 'jakeselby-com-routing',
+      functionName: config.routingFunctionName,
       code: cloudfront.FunctionCode.fromInline(`
 function handler(event) {
   var request = event.request;
