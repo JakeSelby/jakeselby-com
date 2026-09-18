@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Deploy jakeselby.com to AWS
 # Usage: ./scripts/deploy.sh
-# Prerequisites: AWS_PROFILE=your-profile set in env (or set here)
+# Prerequisites: deployment configuration from .env.infra (see README).
 #
 # Guards, in order: the tree must be committed (production never depends on uncommitted
 # edits again), the branch must be main, the build must succeed, and the artifact must be a
@@ -9,10 +9,19 @@
 # four hold. Override with ALLOW_DIRTY=1 or ALLOW_BRANCH=1 when you mean it.
 set -euo pipefail
 
-export AWS_PROFILE="${AWS_PROFILE:-default}"
-export AWS_REGION="us-east-1"
-
 cd "$(dirname "$0")/.."
+
+# This is a trusted, ignored local file, separate from Astro's public build config.
+if [ -f .env.infra ]; then
+  set -a
+  source .env.infra
+  set +a
+fi
+export AWS_REGION="us-east-1"
+: "${SITE_AWS_ACCOUNT_ID:?Set SITE_AWS_ACCOUNT_ID in .env.infra or the environment}"
+: "${SITE_HOSTED_ZONE_ID:?Set SITE_HOSTED_ZONE_ID in .env.infra or the environment}"
+: "${SITE_BUCKET_NAME:?Set SITE_BUCKET_NAME in .env.infra or the environment}"
+: "${SITE_ROUTING_FUNCTION_NAME:?Set SITE_ROUTING_FUNCTION_NAME in .env.infra or the environment}"
 
 echo "▶ Tree check..."
 if [ -n "$(git status --porcelain)" ] && [ "${ALLOW_DIRTY:-0}" != "1" ]; then
@@ -27,7 +36,11 @@ if [ "$BRANCH" != "main" ] && [ "${ALLOW_BRANCH:-0}" != "1" ]; then
 fi
 
 echo "▶ AWS identity check..."
-aws sts get-caller-identity --query 'Account' --output text
+ACCOUNT=$(aws sts get-caller-identity --query 'Account' --output text)
+if [ "$ACCOUNT" != "$SITE_AWS_ACCOUNT_ID" ]; then
+  echo "✗ AWS credentials do not match SITE_AWS_ACCOUNT_ID." >&2
+  exit 1
+fi
 
 echo "▶ Building Astro site..."
 rm -rf dist
@@ -54,15 +67,14 @@ fi
 echo "▶ Deploying CDK stack..."
 (cd infra && npx cdk deploy --require-approval never)
 
-# Capture outputs; fall back to the known bucket name and an alias lookup for the distribution.
-BUCKET=$(cd infra && npx cdk output --stack JakeSelby BucketName --no-staging 2>/dev/null | tr -d '[:space:]' || true)
-BUCKET="${BUCKET:-example-site-web}"
-DIST_ID=$(cd infra && npx cdk output --stack JakeSelby DistributionId --no-staging 2>/dev/null | tr -d '[:space:]' || true)
-if [ -z "${DIST_ID}" ]; then
-  DIST_ID=$(aws cloudfront list-distributions \
-    --query "DistributionList.Items[?Aliases.Items && contains(Aliases.Items, 'jakeselby.com')].Id | [0]" \
-    --output text 2>/dev/null || true)
-  [ "$DIST_ID" = "None" ] && DIST_ID=""
+# Read the deployed stack instead of relying on machine-specific identifiers or guesses.
+BUCKET=$(aws cloudformation describe-stacks --stack-name JakeSelby \
+  --query "Stacks[0].Outputs[?OutputKey=='BucketName'].OutputValue | [0]" --output text)
+DIST_ID=$(aws cloudformation describe-stacks --stack-name JakeSelby \
+  --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue | [0]" --output text)
+if [ "$BUCKET" != "$SITE_BUCKET_NAME" ] || [[ ! "$DIST_ID" =~ ^E[A-Z0-9]+$ ]]; then
+  echo "✗ Missing or unexpected stack outputs; refusing to sync." >&2
+  exit 1
 fi
 
 echo "▶ Syncing static assets to s3://${BUCKET}..."

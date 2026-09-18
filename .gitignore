@@ -4,6 +4,7 @@ dist/
 .env
 .env.*
 !.env.example
+!.env.infra.example
 
 # CDK
 infra/node_modules/

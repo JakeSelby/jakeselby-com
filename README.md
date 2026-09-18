@@ -1,5 +1,24 @@
 # Astro Starter Kit: Minimal
 
+## Deployment configuration
+
+Copy `.env.infra.example` to `.env.infra` and fill in the existing AWS account,
+Route53 hosted-zone ID, S3 bucket name, and CloudFront function name. The file is
+gitignored and must use shell-compatible `KEY=value` assignments. Choose an
+`AWS_PROFILE` if needed; otherwise the standard AWS credential chain is used.
+Do not put credentials in tracked files.
+
+`npm run deploy` loads this file before building and deploying. CDK also loads it
+when run from `infra/`; missing configuration or a mismatched AWS account stops
+the operation. Keep existing resource names when configuring an existing stack
+to avoid replacements. The deployment reads bucket and distribution outputs
+from the `JakeSelby` CloudFormation stack and refuses to sync unexpected outputs.
+The site domain stays public in source; configuration is for deployment IDs.
+
+Validation: `npm ci`, `npm test`, `npm ci --prefix infra`,
+`npm run build --prefix infra`, `npm test --prefix infra`, `npm run build`.
+Infrastructure tests use synthetic IDs and need no AWS access.
+
 ```sh
 npm create astro@latest -- --template minimal
 ```
