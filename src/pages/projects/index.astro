@@ -4,6 +4,20 @@ import ProjectCard from '../../components/ProjectCard.astro';
 
 const projects = [
   {
+    name: 'Sovereign',
+    tagline: 'A whole-Earth grand-strategy game about power, consequence, and the choices that shape nations.',
+    description: 'A real-time grand-strategy game set on a living Earth. You govern one nation through its institutions, resources, alliances, and crises; set intent instead of chasing every unit; and live with consequences that travel across the world rather than disappearing at the edge of a system.',
+    role: 'Creator and developer. Building the simulation, command model, world renderer, design system, and public development diary.',
+    brandColor: '#A9772B',
+    statusLabel: 'In development',
+    statusTone: 'alpha' as const,
+    stack: ['Rust', 'Bevy', 'H3', 'DuckDB', 'Blender', 'AWS'],
+    links: {
+      app: { href: 'https://sovereign.jakeselby.com', label: 'Explore' },
+      community: { href: 'https://discord.gg/5zvy7H6YDW', label: 'Community' },
+    },
+  },
+  {
     name: 'Cortex',
     tagline: 'An AI that remembers who matters to you, tracks what you\'ve committed to, and earns the right to act on your behalf.',
     description: 'Ambient agentic-AI cognitive substrate — per-user memory (pgvector episode store), behavioural rules with lifecycle management, graduated trust governance (per-counterparty autonomy levels), a 17-tool MCP server (OAuth bearer), and a full action ledger with provenance. The substrate that Consul runs on. Phase 0 founder dogfood, live in production.',
@@ -74,7 +88,7 @@ const projects = [
 
 <Layout
   title="Projects — Jake Selby"
-  description="Jake Selby's side projects: Cortex (agentic-AI cognitive substrate), Consul (executive assistant), Groundwork (civic field-ops), and Fable (AI bedtime stories)."
+  description="Jake Selby's side projects: Sovereign, Cortex, Consul, Groundwork, Fable, and Agent Harness."
   currentPath="/projects"
 >
   <div class="max-w-5xl mx-auto px-6">
@@ -85,8 +99,8 @@ const projects = [
         Projects
       </h1>
       <p class="font-body text-lg text-fg-2 mt-2 max-w-[55ch]">
-        Four production systems, each solving a real problem. Solo-built,
-        spec-driven, live.
+        Six projects, each solving a real problem. Solo-built,
+        spec-driven, and moving forward.
       </p>
     </header>
 
