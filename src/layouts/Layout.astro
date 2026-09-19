@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import Analytics from '../components/Analytics.astro';
 
 interface Props {
   title: string;
@@ -26,6 +27,10 @@ const ogImage = 'https://jakeselby.com/jake.png';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <Analytics />
+
     <meta name="description" content={description} />
     <meta name="author" content="Jake Selby" />
 

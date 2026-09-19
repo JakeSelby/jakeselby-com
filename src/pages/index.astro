@@ -5,6 +5,19 @@ import SocialLinks from '../components/SocialLinks.astro';
 
 const projects = [
   {
+    name: 'Sovereign',
+    tagline: 'A whole-Earth grand-strategy game about power and consequence.',
+    reason: 'I wanted the strategy game I kept looking for: a living world where governing matters as much as winning wars.',
+    brandColor: '#A9772B',
+    statusLabel: 'In development',
+    statusTone: 'alpha' as const,
+    stack: ['Rust', 'Bevy', 'H3'],
+    links: {
+      app: { href: 'https://sovereign.jakeselby.com', label: 'Explore' },
+      community: { href: 'https://discord.gg/5zvy7H6YDW', label: 'Community' },
+    },
+  },
+  {
     name: 'Cortex',
     tagline: 'An AI that earns the right to act on your behalf.',
     reason: 'I wanted to build a cognitive substrate for my agents to govern their behavior.',
@@ -213,7 +226,7 @@ const interests = [
           <div class="mb-6">
             <h2 class="font-display font-semibold text-xl text-fg">Recent personal projects</h2>
             <p class="font-body text-sm text-fg-2 mt-1">
-              Four production systems, each one solving a problem I care about personally.
+              Six projects, each one solving a problem I care about personally.
             </p>
           </div>
 
