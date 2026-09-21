@@ -5,6 +5,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 
 const projects = [
+  agentHarness,
   {
     name: 'Sovereign',
     tagline: 'A whole-Earth grand-strategy game about power and consequence.',
@@ -66,7 +67,6 @@ const projects = [
       app: { href: 'https://fable.jakeselby.com', label: 'Explainer' },
     },
   },
-  agentHarness,
 ];
 
 const interests = [
@@ -77,8 +77,8 @@ const interests = [
 ---
 
 <Layout
-  title="Jake Selby — Dad, Builder, VP Engineering"
-  description="Jake Selby — dad, builder, and believer in tech for good. VP Engineering at Arcadia. Political tech, healthcare, and AI for positive impact. Hyattsville, MD."
+  title="Jake Selby — VP Engineering, Agentic Builder, Civic Technologist"
+  description="Jake Selby — VP Engineering at Arcadia. I open-source how I run coding agents (Agent Harness) and build organizing tech, from Obama 2012 and DNC data to today."
   currentPath="/"
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify({
@@ -104,6 +104,7 @@ const interests = [
         "sameAs": [
           "https://github.com/JakeSelby",
           "https://www.linkedin.com/in/jake-selby/",
+          "https://x.com/jaketselby",
           "https://www.facebook.com/jake.selby"
         ],
         "knowsAbout": [
@@ -119,7 +120,7 @@ const interests = [
         "@id": "https://jakeselby.com/#website",
         "url": "https://jakeselby.com",
         "name": "Jake Selby",
-        "description": "Dad, builder, and believer in tech for good.",
+        "description": "VP Engineering, agentic builder, and civic technologist. Open-source agent tooling and tech for good.",
         "author": {
           "@id": "https://jakeselby.com/#jake"
         }
@@ -155,7 +156,7 @@ const interests = [
               VP Engineering · Arcadia
             </p>
             <p class="font-body text-sm text-fg-dim mt-0.5">
-              Dad&nbsp;·&nbsp;Builder&nbsp;·&nbsp;Believer in tech for good
+              Dad&nbsp;·&nbsp;Agentic builder&nbsp;·&nbsp;Tech for good
             </p>
             <p class="font-body text-xs text-fg-dim mt-0.5">
               Hyattsville, MD
@@ -170,8 +171,9 @@ const interests = [
 
         <!-- Intro paragraph — mobile only (desktop has it top of right col) -->
         <p class="lg:hidden font-body text-base text-fg-2 leading-relaxed mt-5 max-w-[55ch]">
-          I run product and engineering teams during the day, build things I care about at
-          night, and try to leave whatever I touch a little better than I found it.
+          I run product and engineering teams during the day and build with coding agents at
+          night: open-source tooling for how agents work, organizing tech for campaigns, and a
+          strategy game. I try to leave whatever I touch a little better than I found it.
         </p>
       </aside>
 
@@ -181,8 +183,9 @@ const interests = [
         <!-- Intro paragraph — desktop only -->
         <section class="hidden lg:block pt-20 pb-10">
           <p class="font-body text-lg text-fg-2 leading-relaxed max-w-[60ch]">
-            I run product and engineering teams during the day, build things I care about at
-            night, and try to leave whatever I touch a little better than I found it.
+            I run product and engineering teams during the day and build with coding agents at
+            night: open-source tooling for how agents work, organizing tech for campaigns, and a
+            strategy game. I try to leave whatever I touch a little better than I found it.
           </p>
         </section>
 
@@ -210,12 +213,25 @@ const interests = [
           </p>
         </section>
 
+        <!-- ─── How I Build ─────────────────────────────────── -->
+        <section class="py-8 border-t border-[var(--color-border-subtle)]">
+          <h2 class="font-display font-semibold text-xl text-fg mb-3">How I Build</h2>
+          <p class="font-body text-base text-fg-2 leading-relaxed max-w-[65ch]">
+            I've been building with LLMs since late 2022, and most of what I ship
+            now is written by coding agents that I direct, review, and constrain.
+            <a href="https://agent-harness.jakeselby.com" class="underline underline-offset-2 hover:text-fg transition-colors duration-[120ms]">Agent Harness</a>
+            is that working method, open-sourced: one set of rules, guardrails,
+            and switchable opinions that follows me across Claude Code and Codex.
+            Every project below is built with it.
+          </p>
+        </section>
+
         <!-- ─── Building ──────────────────────────────────────  -->
         <section class="py-8 border-t border-[var(--color-border)]">
           <div class="mb-6">
             <h2 class="font-display font-semibold text-xl text-fg">Recent personal projects</h2>
             <p class="font-body text-sm text-fg-2 mt-1">
-              Six projects, each one solving a problem I care about personally.
+              Each one solves a problem I care about personally.
             </p>
           </div>
 
