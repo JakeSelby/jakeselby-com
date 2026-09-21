@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 
 const projects = [
+  agentHarness,
   {
     name: 'Sovereign',
     tagline: 'A whole-Earth grand-strategy game about power, consequence, and the choices that shape nations.',
@@ -70,13 +71,12 @@ const projects = [
       app: { href: 'https://fable.jakeselby.com', label: 'Explainer' },
     },
   },
-  agentHarness,
 ];
 ---
 
 <Layout
   title="Projects — Jake Selby"
-  description="Jake Selby's side projects: Sovereign, Cortex, Consul, Groundwork, Fable, and Agent Harness."
+  description="Jake Selby's side projects: Agent Harness, Sovereign, Cortex, Consul, Groundwork, and Fable."
   currentPath="/projects"
 >
   <div class="max-w-5xl mx-auto px-6">
@@ -87,7 +87,7 @@ const projects = [
         Projects
       </h1>
       <p class="font-body text-lg text-fg-2 mt-2 max-w-[55ch]">
-        Six projects, each solving a real problem. Solo-built,
+        Each one solves a real problem. Solo-built,
         spec-driven, and moving forward.
       </p>
     </header>
