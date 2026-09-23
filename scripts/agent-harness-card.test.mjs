@@ -3,7 +3,8 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 const source = readFileSync(new URL('../src/data/agent-harness.ts', import.meta.url), 'utf8');
-const strings = [...source.matchAll(/'([^']*)'/g)].map((match) => match[1]);
+// Single-quoted literals, escapes included, so copy with an apostrophe (`can\'t`) stays one string.
+const strings = [...source.matchAll(/'((?:[^'\\]|\\.)*)'/g)].map((match) => match[1].replace(/\\(.)/g, '$1'));
 
 test('the card carries no version literal, so a release never makes it stale', () => {
   assert.ok(strings.length > 0, 'no string literals found in the card data');
