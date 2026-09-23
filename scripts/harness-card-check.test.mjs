@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
-import { RELEASE_LINK, cardCopy, decide, facts, issue, pageText, plan } from './harness-card-check.mjs';
+import { RELEASE_LINK, actionsFor, cardCopy, decide, facts, issue, pageText, plan } from './harness-card-check.mjs';
 
 const source = readFileSync(new URL('../src/data/agent-harness.ts', import.meta.url), 'utf8');
 const review = JSON.parse(readFileSync(new URL('../src/data/agent-harness.review.json', import.meta.url), 'utf8'));
@@ -84,4 +84,13 @@ test('behind opens one issue or edits the open one; current closes them all', ()
     { op: 'close', number: 3, comment: 'Closed: r.' },
   ]);
   assert.deepEqual(plan({ status: 'current', reason: 'r' }, [], text), []);
+});
+
+test('a current card closes its issue without building issue text', () => {
+  const decision = decide({ reviewedFor: 'v0.12.0', latestTag: 'v0.12.0', copy, placements: livePages });
+  assert.deepEqual(actionsFor({ latestTag: 'v0.12.0', decision, open: [{ number: 15 }], facts: '' }), [
+    { op: 'close', number: 15, comment: 'Closed: the card is reviewed for v0.12.0 and live on both placements.' },
+  ]);
+  const behind = decide({ reviewedFor: 'v0.11.1', latestTag: 'v0.12.0', copy, placements: livePages });
+  assert.equal(actionsFor({ latestTag: 'v0.12.0', decision: behind, open: [], facts: 'F' })[0].op, 'create');
 });

@@ -94,6 +94,11 @@ export function plan(decision, open, text) {
   return open.map(({ number }) => ({ op: 'close', number, comment: `Closed: ${decision.reason}.` }));
 }
 
+// The issue text exists only for a card that is behind: a current decision has no problems to list.
+export function actionsFor({ latestTag, decision, open, facts: detail }) {
+  return plan(decision, open, decision.status === 'behind' ? issue({ latestTag, decision, facts: detail }) : {});
+}
+
 const gh = (args, input) =>
   execFileSync('gh', args, { encoding: 'utf8', input, stdio: ['pipe', 'pipe', 'inherit'] });
 const ghJson = (args) => JSON.parse(gh(args));
@@ -149,7 +154,7 @@ export async function main(argv, env = process.env) {
   const decision = decide({ reviewedFor, latestTag, copy, placements });
   const open = ghJson(['issue', 'list', '-R', site, '--label', LABEL, '--state', 'open', '--json', 'number']);
   const detail = decision.status === 'behind' ? await releaseFacts(latestTag, copy) : '';
-  const actions = plan(decision, open, issue({ latestTag, decision, facts: detail }));
+  const actions = actionsFor({ latestTag, decision, open, facts: detail });
   const summary = decision.status === 'behind'
     ? `behind: ${decision.problems.join(' ')}`
     : `current: ${decision.reason}`;
