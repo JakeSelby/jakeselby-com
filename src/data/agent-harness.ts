@@ -1,10 +1,10 @@
 /** Shared across the homepage and project listing; support facts live in the reference catalog. */
 export const agentHarness = {
   name: 'Agent Harness',
-  tagline: 'Your way of working, across AI agents.',
+  tagline: 'Find out which of your agent rules actually fire.',
   reason: 'I want my agents to work in ways I choose, with personal stances I can switch and custom primitives I can carry across model providers.',
-  description: 'A general-purpose, model-provider-agnostic harness built around the user. Shared rules, skills, roles, workflows and custom primitives make your working style portable. Personal stances turn preferences about delegation, testing, communication and autonomy into explicit switches you can change or extend without rewriting instructions.',
-  role: 'Qualified on the Claude Code and Codex CLIs on macOS and Linux. VS Code and Codex Desktop remain unqualified, Cursor and Grok are planned, and the architecture viewer is a separately installed preview.',
+  description: 'An open-source layer over the Claude Code and Codex you already run. It keeps your rules, skills, roles and workflows in one place, makes every rule name a detector over the transcript or say why it can\'t have one, and shows how often each rule actually fired.',
+  role: 'Built for the Claude Code and Codex CLIs, with Cursor and Grok adapters planned. Qualification status for each release is on the reference site.',
   brandColor: '#d97706',
   statusLabel: 'Open source',
   statusTone: 'beta' as const,
