@@ -1,10 +1,12 @@
 ---
 import { agentHarness } from '../../data/agent-harness';
+import { ruleprobe } from '../../data/ruleprobe';
 import Layout from '../../layouts/Layout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 
 const projects = [
   agentHarness,
+  ruleprobe,
   {
     name: 'Sovereign',
     tagline: 'A whole-Earth grand-strategy game about power, consequence, and the choices that shape nations.',
@@ -76,7 +78,7 @@ const projects = [
 
 <Layout
   title="Projects — Jake Selby"
-  description="Jake Selby's side projects: Agent Harness, Sovereign, Cortex, Consul, Groundwork, and Fable."
+  description="Jake Selby's side projects: Agent Harness, ruleprobe, Sovereign, Cortex, Consul, Groundwork, and Fable."
   currentPath="/projects"
 >
   <div class="max-w-5xl mx-auto px-6">
