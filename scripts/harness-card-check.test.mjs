@@ -71,7 +71,7 @@ test('the review facts carry the headline, description, catalog statuses and rol
 test('the issue lists the problems, the facts and how to close it', () => {
   const decision = { status: 'behind', problems: ['one', 'two'] };
   const { title, body } = issue({ latestTag: 'v0.12.0', decision, facts: 'FACTS' });
-  assert.equal(title, 'Agent Harness card is not current for v0.12.0');
+  assert.equal(title, 'Model Citizen card is not current for v0.12.0');
   assert.match(body, /^- one\n- two\n\nFACTS\n\n\*\*To close:\*\*/);
   assert.match(body, /`reviewedFor` in `src\/data\/agent-harness\.review\.json` to `v0\.12\.0`/);
 });

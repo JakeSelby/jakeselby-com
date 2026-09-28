@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Keeps the ruleprobe card honest about the latest ruleprobe release, the way
-// harness-card-check.mjs does for the Agent Harness card: one `release-drift` issue, titled for
+// harness-card-check.mjs does for the Model Citizen card: one `release-drift` issue, titled for
 // this card alone, stays open until the copy in src/data/ruleprobe.ts has been reviewed against
 // the latest release (`reviewedFor` in src/data/ruleprobe.review.json), that copy is live, and
 // both placements resolve and link the latest release and the reference site. The shared logic is
