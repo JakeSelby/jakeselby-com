@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Keeps the Agent Harness card honest about the latest agent-harness release. The card carries
+// Keeps the Model Citizen card honest about the latest Model Citizen release. The card carries
 // no version literal (agent-harness-card.test.mjs), so no release makes it look stale, but a
 // release can still make its copy wrong: a new headline, a changed support claim. This keeps one
 // `release-drift` issue open until the copy has been reviewed against the latest release, that
@@ -13,9 +13,9 @@ import * as shared from './card-check.mjs';
 
 export { COPY_FIELDS, LABEL, PLACEMENTS, cardCopy, pageText, plan } from './card-check.mjs';
 
-export const HARNESS_REPO = 'JakeSelby/agent-harness';
-export const RELEASE_LINK = 'https://github.com/JakeSelby/agent-harness/releases/latest';
-export const TITLE_PREFIX = 'Agent Harness card is not current';
+export const HARNESS_REPO = 'JakeSelby/model-citizen';
+export const RELEASE_LINK = 'https://github.com/JakeSelby/model-citizen/releases/latest';
+export const TITLE_PREFIX = 'Model Citizen card is not current';
 
 export function decide(args) {
   return shared.decide({ ...args, releaseLink: RELEASE_LINK });

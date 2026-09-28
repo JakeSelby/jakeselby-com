@@ -10,7 +10,7 @@ const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf
 
 // Both cards share the label, so each check's open list holds the other card's issue too.
 const listed = [
-  { number: 7, title: 'Agent Harness card is not current for v0.12.0' },
+  { number: 7, title: 'Model Citizen card is not current for v0.12.0' },
   { number: 8, title: 'ruleprobe card is not current for v0.1.0' },
 ];
 
@@ -40,13 +40,13 @@ test('each check keeps only the open issues titled for its own card', () => {
   assert.deepEqual(ownIssues([{ number: 9 }], ruleprobe.TITLE_PREFIX), []);
 });
 
-test('a current ruleprobe card closes its own issue and leaves the Agent Harness one untouched', async () => {
+test('a current ruleprobe card closes its own issue and leaves the Model Citizen one untouched', async () => {
   const { calls, log } = await runCurrent(ruleprobe);
   assert.match(log[0], /^current: /);
   assert.deepEqual(calls.map((args) => args.slice(0, 3)), [['issue', 'close', '8']]);
 });
 
-test('a current Agent Harness card closes its own issue and leaves the ruleprobe one untouched', async () => {
+test('a current Model Citizen card closes its own issue and leaves the ruleprobe one untouched', async () => {
   const { calls, log } = await runCurrent(harness);
   assert.match(log[0], /^current: /);
   assert.deepEqual(calls.map((args) => args.slice(0, 3)), [['issue', 'close', '7']]);

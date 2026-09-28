@@ -14,7 +14,7 @@ test('the card carries no version literal, so a release never makes it stale', (
 
 test('the repository link points at the latest release rather than a tag', () => {
   assert.ok(
-    strings.includes('https://github.com/JakeSelby/agent-harness/releases/latest'),
+    strings.includes('https://github.com/JakeSelby/model-citizen/releases/latest'),
     'expected the repo link to resolve to the latest release',
   );
   assert.doesNotMatch(source, /releases\/tag\//);
